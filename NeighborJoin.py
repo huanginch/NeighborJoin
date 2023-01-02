@@ -2,11 +2,13 @@ import numpy as np
 import random
 
 def NeighborJoin(D: float): # D: distance matrix
+
     # init parameters
     n = D.shape[0]  # number of nodes (sequences)
     T = np.zeros((n - 1, 5))  # T: tree
     s = 0 # s: index of T
     seqID = np.zeros(n)  # seqID: list to record sequence ID (random number between 100 and 999)
+    
     for i in range(n):
         seqID[i] = random.randint(100, 999)
 
@@ -19,7 +21,7 @@ def NeighborJoin(D: float): # D: distance matrix
         r = np.zeros(n)  # r: net divergence
         q = np.zeros((n, n))  # q: adjusted distance
 
-        print("D: ", D)
+        # print("D: ", D)
 
         # compute r
         # if there are only two nodes left, compute r directly
@@ -34,7 +36,7 @@ def NeighborJoin(D: float): # D: distance matrix
         for i in range(n):
             r[i] = (1 / (n - 2)) * np.sum(D[i])
             r[i] = round(r[i], 5)
-            print(r[i])
+            # print(r[i])
 
         # compute q
         for i in range(n):
@@ -44,7 +46,7 @@ def NeighborJoin(D: float): # D: distance matrix
                 else:
                     q[i, j] = D[i, j] - r[i] - r[j]
 
-        print("q: ", q)
+        # print("q: ", q)
 
         # find min q
         min_q = np.inf # inf means infinity
