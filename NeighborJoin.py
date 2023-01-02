@@ -7,16 +7,21 @@ def NeighborJoin(D): # D: distance matrix
     T = np.zeros((n - 1, 5))  # T: tree
     s = 0 # s: index of T
     seqID = np.zeros(n)  # seqID: list to record sequence ID (random number between 100 and 999)
-    for i in range(n):
-        seqID[i] = random.randint(100, 999)
+    # for i in range(n):
+    #     seqID[i] = random.randint(100, 999)
+
+    seqID = np.array([786, 381, 623, 897, 882, 152, 565]) # for testing
 
     tempSeqID = seqID.copy()  # tempSeqID: temporary sequence ID list use to compute
+
 
     # do neighbor join until there is only one node left
     while D.shape[0] > 1:
 
         r = np.zeros(n)  # r: net divergence
         q = np.zeros((n, n))  # q: adjusted distance
+
+        print("D: ", D)
 
         # compute r
         # if there are only two nodes left, compute r directly
@@ -30,6 +35,8 @@ def NeighborJoin(D): # D: distance matrix
         
         for i in range(n):
             r[i] = (1 / (n - 2)) * np.sum(D[i])
+            r[i] = round(r[i], 5)
+            print(r[i])
 
         # compute q
         for i in range(n):
@@ -38,7 +45,9 @@ def NeighborJoin(D): # D: distance matrix
                     q[i, j] = 0
                 else:
                     q[i, j] = D[i, j] - r[i] - r[j]
-   
+
+        print("q: ", q)
+
         # find min q
         min_q = np.inf # inf means infinity
         for j in range(n):
@@ -68,7 +77,7 @@ def NeighborJoin(D): # D: distance matrix
         # update D
         for i in range(n):
             if i != min_j and i != min_k:
-                D[i, min_j] = D[min_j, i] = (D[i, min_j] + D[i, min_k] - D[min_j, min_k]) / 2
+                D[i, min_j] = D[min_j, i] = (D[i, min_j] + D[i, min_k] - D[min_j, min_k]) * 0.5
         
         # remove min_k
         D = np.delete(D, min_k, 0)
