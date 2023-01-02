@@ -1,16 +1,14 @@
 import numpy as np
 import random
 
-def NeighborJoin(D): # D: distance matrix
+def NeighborJoin(D: float): # D: distance matrix
     # init parameters
     n = D.shape[0]  # number of nodes (sequences)
     T = np.zeros((n - 1, 5))  # T: tree
     s = 0 # s: index of T
     seqID = np.zeros(n)  # seqID: list to record sequence ID (random number between 100 and 999)
-    # for i in range(n):
-    #     seqID[i] = random.randint(100, 999)
-
-    seqID = np.array([786, 381, 623, 897, 882, 152, 565]) # for testing
+    for i in range(n):
+        seqID[i] = random.randint(100, 999)
 
     tempSeqID = seqID.copy()  # tempSeqID: temporary sequence ID list use to compute
 
